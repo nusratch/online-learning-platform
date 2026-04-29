@@ -1,4 +1,5 @@
 function Footer() {
+  
   return (
     <footer className="bg-base-200 p-5 text-center md:text-left">
 
