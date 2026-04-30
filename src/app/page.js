@@ -42,7 +42,48 @@ export default function Home() {
           </div>
         </div>
       </section>
+<section className="py-14 px-4">
+  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+    🏆 Top Instructors
+  </h2>
+
+  <div className="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+
+    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 text-center">
+      <img
+        src="/a1.jpg"
+        alt="Instructor"
+        className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
+      />
+      <h3 className="text-lg font-semibold">John Doe</h3>
+      <p className="text-gray-500 text-sm">Web Development</p>
+    </div>
+
+    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 text-center">
+      <img
+        src="/a3.jpg"
+        alt="Instructor"
+        className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
+      />
+      <h3 className="text-lg font-semibold">Sarah Smith</h3>
+      <p className="text-gray-500 text-sm">UI/UX Design</p>
+    </div>
+
+    <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 text-center">
+      <img
+        src="/a2.jpg"
+        alt="Instructor"
+        className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
+      />
+      <h3 className="text-lg font-semibold">David Lee</h3>
+      <p className="text-gray-500 text-sm">Digital Marketing</p>
+    </div>
+
+  </div>
+</section>
+
+
     </>
   );
-  
+
 }
