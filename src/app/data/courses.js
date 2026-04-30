@@ -7,7 +7,7 @@ const courses = [
     rating: 4.8,
     level: "Beginner",
     description: "Learn full-stack web development from scratch.",
-    image: "https://i.postimg.cc/8P0D9y7r/web.jpg",
+    image: "/p1.png",
     category: "Development"
   },
   {
@@ -18,7 +18,7 @@ const courses = [
     rating: 4.7,
     level: "Intermediate",
     description: "Master UI/UX design principles.",
-    image: "https://i.postimg.cc/3x3QzSGq/design.jpg",
+    image: "/p2.jpg",
     category: "Design"
   },
   {
@@ -29,7 +29,7 @@ const courses = [
     rating: 4.6,
     level: "Beginner",
     description: "Learn marketing strategies.",
-    image: "https://i.postimg.cc/1t2z9kHc/marketing.jpg",
+    image: "/p3.jpg",
     category: "Marketing"
   },
   {
@@ -40,7 +40,7 @@ const courses = [
     rating: 4.9,
     level: "Advanced",
     description: "Deep dive into React.",
-    image: "https://i.postimg.cc/fW1b6p7y/react.jpg",
+    image: "https://cdn.dribbble.com/users/1162077/screenshots/5421467/react.png",
     category: "Development"
   },
   {
@@ -51,7 +51,7 @@ const courses = [
     rating: 4.5,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "https://i.postimg.cc/KY8xF8YF/graphic.jpg",
+    image: "https://cdn.dribbble.com/users/1162077/screenshots/4386602/graphic-design.png",
     category: "Design"
   },
   {
@@ -62,7 +62,7 @@ const courses = [
     rating: 4.4,
     level: "Beginner",
     description: "Improve website SEO.",
-    image: "https://i.postimg.cc/Y9p0Gq3C/seo.jpg",
+    image: "https://cdn.dribbble.com/users/1622791/screenshots/11310887/media/seo.png",
     category: "Marketing"
   }
 ];
