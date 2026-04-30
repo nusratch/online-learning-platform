@@ -1,51 +1,51 @@
-"use client";
-import Link from "next/link";
+"use client"
 
-function Navbar() {
-  const user = null;
+import { useEffect, useState } from "react"
+
+export default function Navbar() {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const checkUser = () => {
+      const storedUser = localStorage.getItem("user")
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+      } else {
+        setUser(null)
+      }
+    }
+
+    checkUser()
+
+    window.addEventListener("storage", checkUser)
+
+    return () => window.removeEventListener("storage", checkUser)
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem("user")
+    setUser(null)
+    window.location.reload()
+  }
 
   return (
-    <div className="navbar bg-base-200 px-4 md:px-8">
+    <div className="flex justify-between p-4">
+      <div>SkillSphere</div>
 
-      {/* LEFT */}
-      <div className="flex-1 flex items-center gap-2">
-        <img src="/logo.jpeg" className="w-8 h-8 md:w-10 md:h-10 rounded-full" />
-        <Link href="/" className="text-lg md:text-xl font-bold">
-          SkillSphere
-        </Link>
-      </div>
+      <div className="flex gap-4">
+        <a href="/">Home</a>
+        <a href="/courses">Courses</a>
+        <a href="/profile">My Profile</a>
 
-      {/* RIGHT */}
-      <div className="hidden md:flex gap-4 items-center">
-        <Link href="/">Home</Link>
-        <Link href="/courses">Courses</Link>
-        <Link href="/profile">My Profile</Link>
-
-        {!user ? (
-          <>
-            <Link href="/login" className="btn btn-sm">Login</Link>
-            <Link href="/register" className="btn btn-primary btn-sm">
-              Register
-            </Link>
-          </>
+        {user ? (
+          <button onClick={handleLogout}>Logout</button>
         ) : (
-          <button className="btn btn-sm">Logout</button>
+          <>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+          </>
         )}
       </div>
-
-      {/* MOBILE MENU */}
-      <div className="dropdown md:hidden">
-        <label tabIndex={0} className="btn btn-sm">☰</label>
-        <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-40 right-0">
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/courses">Courses</Link></li>
-          <li><Link href="/profile">Profile</Link></li>
-          <li><Link href="/login">Login</Link></li>
-        </ul>
-      </div>
-
     </div>
-  );
+  )
 }
-
-export default Navbar;

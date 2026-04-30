@@ -1,8 +1,36 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function RegisterPage() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const router = useRouter()
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name, email, password })
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+      alert("Registration successful")
+      router.push("/login")
+    } else {
+      alert(data.message)
+    }
+  }
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-blue-100 to-purple-100 px-4">
 
@@ -15,25 +43,16 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleRegister} className="flex flex-col gap-4">
 
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="input input-bordered w-full"
-          />
+          <input type="text" placeholder="Full Name" className="input input-bordered w-full"
+            onChange={(e)=>setName(e.target.value)} />
 
-          <input
-            type="email"
-            placeholder="Email Address"
-            className="input input-bordered w-full"
-          />
+          <input type="email" placeholder="Email Address" className="input input-bordered w-full"
+            onChange={(e)=>setEmail(e.target.value)} />
 
-          <input
-            type="password"
-            placeholder="Password"
-            className="input input-bordered w-full"
-          />
+          <input type="password" placeholder="Password" className="input input-bordered w-full"
+            onChange={(e)=>setPassword(e.target.value)} />
 
           <button className="btn btn-primary w-full mt-2">
             Register
