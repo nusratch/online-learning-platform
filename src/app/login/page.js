@@ -2,16 +2,24 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      toast.error("All fields are required ❌");
+      return;
+    }
+
     try {
-      const res = await fetch("/api/login", {
+      const res = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,28 +27,24 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      const text = await res.text();
-
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch {
-        alert("Server error");
-        return;
-      }
+      const data = await res.json();
 
       if (res.ok && data.success) {
         localStorage.setItem("user", JSON.stringify(data.user));
 
+        toast.success("Login successful 🎉");
+
         const params = new URLSearchParams(window.location.search);
         const redirect = params.get("from") || "/";
 
-        window.location.href = redirect;
+        setTimeout(() => {
+          router.push(redirect);
+        }, 1000);
       } else {
-        alert(data.message);
+        toast.error(data.message || "Login failed ❌");
       }
     } catch (error) {
-      alert("Network error");
+      toast.error("Network error ❌");
     }
   };
 
@@ -61,6 +65,7 @@ export default function LoginPage() {
             type="email"
             placeholder="Email Address"
             className="input input-bordered w-full"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
@@ -68,6 +73,7 @@ export default function LoginPage() {
             type="password"
             placeholder="Password"
             className="input input-bordered w-full"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
@@ -79,7 +85,7 @@ export default function LoginPage() {
 
         <p className="text-center text-sm mt-4">
           Don’t have an account?{" "}
-          <Link href="/register" className="text-blue-600 font-medium">
+          <Link href="/register" className="text-blue-600 font-medium hover:underline">
             Register
           </Link>
         </p>

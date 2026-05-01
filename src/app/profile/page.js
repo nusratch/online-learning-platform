@@ -1,54 +1,61 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 
-export default function ProfilePage() {
-  const [user, setUser] = useState({
-    name: "Nusrat",
-    email: "nusrat@gmail.com",
-    image: "https://i.pravatar.cc/150?img=12"
-  });
+export default function UpdateProfile() {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
 
-  useEffect(() => {
-    const savedName = localStorage.getItem("name");
-    const savedImage = localStorage.getItem("image");
+  const handleUpdate = async (e) => {
+    e.preventDefault();
 
-    if (savedName || savedImage) {
-      setUser({
-        ...user,
-        name: savedName || user.name,
-        image: savedImage || user.image
-      });
+    if (!name || !image) {
+      toast.error("Please fill all fields ❌");
+      return;
     }
-  }, []);
+
+    try {
+      await authClient.updateUser({
+        name: name,
+        image: image,
+      });
+
+      toast.success("Profile updated successfully ✅");
+    } catch (error) {
+      toast.error("Update failed ❌");
+    }
+  };
 
   return (
-    <div className="w-full min-h-[70vh] flex justify-center items-start pt-20">
-
-      <div className="flex flex-col items-center text-center gap-6">
-
-        <img
-           src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-          className="w-28 h-28 rounded-full object-cover"
-        />
-
-        <h2 className="text-xl font-semibold">
-          {user.name}
+    <div className="flex justify-center items-center min-h-[70vh] px-4">
+      <form
+        onSubmit={handleUpdate}
+        className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md flex flex-col gap-5"
+      >
+        <h2 className="text-xl font-semibold text-center">
+          Update Profile
         </h2>
 
-        <p className="text-gray-500 border p-2 shadow rounded">
-          {user.email}
-        </p>
+        <input
+          type="text"
+          placeholder="Enter name"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
+          onChange={(e) => setName(e.target.value)}
+        />
 
-        <Link href="/profile/update">
-          <button className="btn btn-primary px-6">
-            Update Profile
-          </button>
-        </Link>
+        <input
+          type="text"
+          placeholder="Image URL"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
+          onChange={(e) => setImage(e.target.value)}
+        />
 
-      </div>
-
+        <button className="btn btn-primary w-full mt-2">
+          Update Information
+        </button>
+      </form>
     </div>
   );
 }

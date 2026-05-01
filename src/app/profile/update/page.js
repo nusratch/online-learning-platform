@@ -1,16 +1,34 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 
 export default function UpdateProfile() {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    localStorage.setItem("name", name);
-    localStorage.setItem("image", image);
-    alert("Profile Updated!");
+
+    if (!name || !image) {
+      toast.error("Please fill all fields ❌");
+      return;
+    }
+
+    try {
+      await authClient.updateUser({
+        name: name,
+        image: image,
+      });
+
+      localStorage.setItem("name", name);
+      localStorage.setItem("image", image);
+
+      toast.success("Profile updated successfully ✅");
+    } catch (error) {
+      toast.error("Update failed ❌");
+    }
   };
 
   return (
