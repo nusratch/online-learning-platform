@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CourseCard({ course }) {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
@@ -17,9 +19,11 @@ export default function CourseCard({ course }) {
           ⭐ {course.rating}
         </p>
 
-        <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-          View Details
-        </button>
+        <Link href={`/courses/${course.id}`}>
+          <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+            View Details
+          </button>
+        </Link>
       </div>
     </div>
   );

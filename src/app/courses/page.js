@@ -1,32 +1,28 @@
-import courses from "../data/courses";
-import Link from "next/link";
+import courses from "../data/courses"
 
-function CoursesPage() {
+export default function CoursesPage() {
   return (
-    <div className="p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">All Courses</h1>
 
-      {courses.map(course => (
-        <div key={course.id} className="card bg-base-100 shadow-md">
-
-          <figure>
-            <img src={course.image} alt={course.title} />
-          </figure>
-
-          <div className="card-body">
-            <h2 className="card-title">{course.title}</h2>
-            <p>{course.instructor}</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {courses.map((course) => (
+          <div key={course.id} className="border p-4 rounded-lg shadow">
+            <img
+              src={course.image}
+              alt={course.title}
+              className="w-full h-40 object-cover rounded"
+            />
+            <h2 className="text-lg font-semibold mt-2">
+              {course.title}
+            </h2>
+            <p className="text-sm text-gray-500">
+              {course.instructor}
+            </p>
             <p>⭐ {course.rating}</p>
-
-            <Link href={`/courses/${course.id}`}>
-              <button className="btn btn-primary mt-2">View Details</button>
-            </Link>
           </div>
-
-        </div>
-      ))}
-
+        ))}
+      </div>
     </div>
-  );
+  )
 }
-
-export default CoursesPage;

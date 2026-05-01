@@ -40,7 +40,7 @@ const courses = [
     rating: 4.9,
     level: "Advanced",
     description: "Deep dive into React.",
-    image: "https://cdn.dribbble.com/users/1162077/screenshots/5421467/react.png",
+    image: "/p3.jpg",
     category: "Development"
   },
   {
@@ -51,7 +51,7 @@ const courses = [
     rating: 4.5,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "https://cdn.dribbble.com/users/1162077/screenshots/4386602/graphic-design.png",
+    image: "/p3.jpg",
     category: "Design"
   },
   {
@@ -62,9 +62,77 @@ const courses = [
     rating: 4.4,
     level: "Beginner",
     description: "Improve website SEO.",
-    image: "https://cdn.dribbble.com/users/1622791/screenshots/11310887/media/seo.png",
+    image: "/p3.jpg",
     category: "Marketing"
   }
+,
+    {
+    id: 7,
+    title: " Design Basics",
+    instructor: "Watson",
+    duration: "19 hours",
+    rating: 4.1,
+    level: "Beginner",
+    description: "Learn design fundamentals.",
+    image: "/p3.jpg",
+    category: "Design"
+  },
+    {
+    id: 8,
+    title: "Graphic Basics",
+    instructor: "auha",
+    duration: "10 hours",
+    rating: 4.0,
+    level: "Beginner",
+    description: "Learn design fundamentals.",
+    image: "/p3.jpg",
+    category: "Design"
+  },
+
+    {
+    id: 9,
+    title: "gaming site design",
+    instructor: "Henry",
+    duration: "10 hours",
+    rating: 4.0,
+    level: "Beginner",
+    description: "Learn design fundamentals.",
+    image: "/p3.jpg",
+    category: "Design"
+  },
+    {
+    id: 10,
+    title: "AI Basics",
+    instructor: "Emma Watson",
+    duration: "10 hours",
+    rating: 3.5,
+    level: "Beginner",
+    description: "Learn design fundamentals.",
+    image: "/p3.jpg",
+    category: "Design"
+  },
+    {
+    id: 11,
+    title: "softawre Engineering",
+    instructor: "Suhaa",
+    duration: "10 hours",
+    rating: 3.5,
+    level: "Beginner",
+    description: "Learn design fundamentals.",
+    image: "/p3.jpg",
+    category: "Design"
+  },
+    {
+    id: 12,
+    title: "coding Basics",
+    instructor: "Wailam",
+    duration: "10 hours",
+    rating: 3.8,
+    level: "Beginner",
+    description: "Learn design fundamentals.",
+    image: "/p3.jpg",
+    category: "Design"
+  },
 ];
 
 export default courses;

@@ -10,27 +10,42 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await res.json();
+      const text = await res.text();
 
-    if (res.ok) {
-      localStorage.setItem("user", JSON.stringify(data.user));
-      window.location.href = "/";
-    } else {
-      alert(data.message);
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        alert("Server error");
+        return;
+      }
+
+      if (res.ok && data.success) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        const params = new URLSearchParams(window.location.search);
+        const redirect = params.get("from") || "/";
+
+        window.location.href = redirect;
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      alert("Network error");
     }
   };
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-blue-100 to-purple-100 px-4">
-
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
 
         <div className="flex flex-col items-center mb-6">
@@ -70,7 +85,6 @@ export default function LoginPage() {
         </p>
 
       </div>
-
     </div>
   );
 }

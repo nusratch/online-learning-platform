@@ -1,51 +1,36 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
-  const [user, setUser] = useState(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const checkUser = () => {
-      const storedUser = localStorage.getItem("user")
-      if (storedUser) {
-        setUser(JSON.parse(storedUser))
-      } else {
-        setUser(null)
-      }
+    if (document.cookie.includes("token")) {
+      setIsLoggedIn(true);
     }
-
-    checkUser()
-
-    window.addEventListener("storage", checkUser)
-
-    return () => window.removeEventListener("storage", checkUser)
-  }, [])
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user")
-    setUser(null)
-    window.location.reload()
-  }
+    document.cookie = "token=; path=/; max-age=0";
+    setIsLoggedIn(false);
+  };
 
   return (
-    <div className="flex justify-between p-4">
-      <div>SkillSphere</div>
+    <nav className="flex justify-between px-6 py-4">
+      <h1>SkillSphere</h1>
 
       <div className="flex gap-4">
-        <a href="/">Home</a>
-        <a href="/courses">Courses</a>
-        <a href="/profile">My Profile</a>
+        <Link href="/">Home</Link>
+        <Link href="/courses">Courses</Link>
 
-        {user ? (
+        {isLoggedIn ? (
           <button onClick={handleLogout}>Logout</button>
         ) : (
-          <>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-          </>
+          <Link href="/login">Login</Link>
         )}
       </div>
-    </div>
-  )
+    </nav>
+  );
 }
