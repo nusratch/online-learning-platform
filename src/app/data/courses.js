@@ -7,7 +7,7 @@ const courses = [
     rating: 4.8,
     level: "Beginner",
     description: "Learn full-stack web development from scratch.",
-    image: "/p1.png",
+    image: "/p4.jpg",
     category: "Development"
   },
   {
@@ -40,7 +40,7 @@ const courses = [
     rating: 4.9,
     level: "Advanced",
     description: "Deep dive into React.",
-    image: "/p3.jpg",
+    image: "/p1.png",
     category: "Development"
   },
   {
@@ -51,7 +51,7 @@ const courses = [
     rating: 4.5,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Design"
   },
   {
@@ -62,7 +62,7 @@ const courses = [
     rating: 4.4,
     level: "Beginner",
     description: "Improve website SEO.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Marketing"
   }
 ,
@@ -74,7 +74,7 @@ const courses = [
     rating: 4.1,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Design"
   },
     {
@@ -85,7 +85,7 @@ const courses = [
     rating: 4.0,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Design"
   },
 
@@ -97,7 +97,7 @@ const courses = [
     rating: 4.0,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Design"
   },
     {
@@ -108,7 +108,7 @@ const courses = [
     rating: 3.5,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Design"
   },
     {
@@ -119,7 +119,7 @@ const courses = [
     rating: 3.5,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Design"
   },
     {
@@ -130,7 +130,7 @@ const courses = [
     rating: 3.8,
     level: "Beginner",
     description: "Learn design fundamentals.",
-    image: "/p3.jpg",
+    image: "/p4.jpg",
     category: "Design"
   },
 ];
