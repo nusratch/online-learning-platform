@@ -1,45 +1,50 @@
-import { NextResponse } from "next/server"
-import clientPromise from "@/lib/db"
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { email, password } = await req.json()
+    const body = await req.json();
+    const { email, password } = body;
 
-    const client = await clientPromise
-    const db = client.db("skillpshere")
+    if (!email || !password) {
+      return NextResponse.json(
+        { success: false, message: "Missing fields" },
+        { status: 400 }
+      );
+    }
 
-    const user = await db.collection("users").findOne({ email })
+    const clientPromise = (await import("@/lib/db")).default;
+    const client = await clientPromise;
+    const db = client.db("skillpshere");
 
-    console.log("Typed Email:", email)
-    console.log("Typed Password:", password)
-    console.log("DB User:", user)
+    const user = await db.collection("users").findOne({ email });
 
     if (!user) {
       return NextResponse.json(
         { success: false, message: "User not found" },
         { status: 401 }
-      )
+      );
     }
 
     if (user.password !== password) {
       return NextResponse.json(
-        { success: false, message: "Password does not match" },
+        { success: false, message: "Wrong password" },
         { status: 401 }
-      )
+      );
     }
 
     return NextResponse.json({
       success: true,
-      message: "Login successful",
       user: {
         email: user.email,
+        name: user.name,
+        image: user.image,
       },
-    })
+    });
+
   } catch (error) {
-    console.log(error)
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 }
-    )
+    );
   }
 }

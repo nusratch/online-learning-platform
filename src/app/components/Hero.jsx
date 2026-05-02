@@ -16,9 +16,7 @@ export default function Hero() {
               Get Started
             </button>
 
-            <button className="border border-gray-400 px-6 py-3 rounded-lg hover:bg-gray-100">
-              Browse Courses
-            </button>
+          
           </div>
         </div>
 
