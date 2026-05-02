@@ -43,17 +43,20 @@ export default function Navbar() {
       </h1>
 
       <div className="flex gap-2 sm:gap-4 items-center">
-        <Link href="/" className="hover:text-blue-500">
+        <Link href="/" className="text-black hover:text-blue-500">
           Home
         </Link>
 
-        <Link href="/courses" className="hover:text-blue-500">
+        <Link href="/courses" className="text-black hover:text-blue-500">
           Courses
         </Link>
 
         {user ? (
           <>
-            <Link href="/profile" className="flex items-center gap-2 hover:text-blue-500">
+            <Link
+              href="/profile"
+              className="flex items-center gap-2 text-black hover:text-blue-500"
+            >
               <img
                 src={user.image || "https://i.pravatar.cc/150"}
                 alt="user"
@@ -80,7 +83,7 @@ export default function Navbar() {
 
             <Link
               href="/register"
-              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md border hover:bg-gray-100"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md border text-black hover:bg-gray-100"
             >
               Register
             </Link>

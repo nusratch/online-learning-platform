@@ -35,7 +35,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-2xl md:text-3xl font-bold mb-6 text-center"
+          className="text-2xl md:text-3xl font-bold mb-6 text-center text-black"
         >
           🔥 Popular Courses
         </motion.h2>
@@ -60,7 +60,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="text-2xl md:text-3xl font-bold text-center mb-10"
+          className="text-2xl md:text-3xl font-bold text-center mb-10 text-black"
         >
           📌 Learning Tips
         </motion.h2>
@@ -70,9 +70,12 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300"
           >
-            <h3 className="text-xl font-semibold mb-3">📖 Study Techniques</h3>
-            <p className="text-gray-600">
-              Break your learning into small chunks, practice daily, and revise regularly to master any skill faster.
+            <h3 className="text-xl font-semibold mb-3 text-black">
+              📖 Study Techniques
+            </h3>
+            <p className="text-gray-900">
+              Break your learning into small chunks, practice daily, and revise
+              regularly to master any skill faster.
             </p>
           </motion.div>
 
@@ -80,45 +83,48 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300"
           >
-            <h3 className="text-xl font-semibold mb-3">⏰ Time Management</h3>
-            <p className="text-gray-600">
-              Set clear goals, avoid distractions, and use techniques like Pomodoro to stay productive.
+            <h3 className="text-xl font-semibold mb-3 text-black">
+              ⏰ Time Management
+            </h3>
+            <p className="text-gray-900">
+              Set clear goals, avoid distractions, and use techniques like
+              Pomodoro to stay productive.
             </p>
           </motion.div>
         </div>
       </section>
 
       <section className="py-12 px-4 bg-white">
-  <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-    🆕 New Releases
-  </h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-black">
+          🆕 New Releases
+        </h2>
 
-  <div className="max-w-7xl mx-auto grid gap-6 md:grid-cols-3">
-    {courses.slice(3, 6).map((course) => (
-      <div
-        key={course.id}
-        className="bg-gray-100 p-4 rounded-xl shadow hover:shadow-lg transition"
-      >
-        <img
-          src={course.image}
-          className="w-full h-40 object-cover rounded-md mb-3"
-        />
+        <div className="max-w-7xl mx-auto grid gap-6 md:grid-cols-3">
+          {courses.slice(3, 6).map((course) => (
+            <div
+              key={course.id}
+              className="bg-gray-100 p-4 rounded-xl shadow hover:shadow-lg transition"
+            >
+              <img
+                src={course.image}
+                className="w-full h-40 object-cover rounded-md mb-3"
+              />
 
-        <h3 className="font-semibold">{course.title}</h3>
+              <h3 className="font-semibold text-black">{course.title}</h3>
 
-        <p className="text-sm text-gray-500">
-          {course.instructor}
-        </p>
-      </div>
-    ))}
-  </div>
-</section>
+              <p className="text-sm text-gray-800">
+                {course.instructor}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="py-14 px-4">
         <motion.h2
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="text-2xl md:text-3xl font-bold text-center mb-10"
+          className="text-2xl md:text-3xl font-bold text-center mb-10 text-black"
         >
           🏆 Top Instructors
         </motion.h2>
@@ -142,8 +148,10 @@ export default function Home() {
                 alt="Instructor"
                 className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
               />
-              <h3 className="text-lg font-semibold">{inst.name}</h3>
-              <p className="text-gray-500 text-sm">{inst.field}</p>
+              <h3 className="text-lg font-semibold text-black">
+                {inst.name}
+              </h3>
+              <p className="text-gray-800 text-sm">{inst.field}</p>
             </motion.div>
           ))}
         </div>

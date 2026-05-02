@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import clientPromise from "@/lib/db";
 
 export async function POST(req) {
   try {
@@ -12,7 +13,6 @@ export async function POST(req) {
       );
     }
 
-    const clientPromise = (await import("@/lib/db")).default;
     const client = await clientPromise;
     const db = client.db("skillpshere");
 
