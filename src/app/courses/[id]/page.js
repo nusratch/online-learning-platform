@@ -7,36 +7,47 @@ import courses from "../../data/courses";
 export default function CourseDetails() {
   const router = useRouter();
   const params = useParams();
+
   const [course, setCourse] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!params?.id) return;
 
     const storedUser = localStorage.getItem("user");
 
-    if (!storedUser) {
-      router.replace(`/register?from=/courses/${params.id}`);
-      return;
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
 
     const id = Number(params.id);
     const foundCourse = courses.find((c) => c.id === id);
 
-    if (!foundCourse) {
+    if (foundCourse) {
+      setCourse(foundCourse);
+    } else {
       router.replace("/courses");
-      return;
     }
 
-    setCourse(foundCourse);
+    setLoading(false);
   }, [params]);
 
-  if (!course) {
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace(`/login?from=/courses/${params.id}`);
+    }
+  }, [loading, user, router, params]);
+
+  if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[70vh]">
         <p className="text-lg animate-pulse">Loading...</p>
       </div>
     );
   }
+
+  if (!course) return null;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -70,12 +81,8 @@ export default function CourseDetails() {
         </h2>
 
         <ul className="list-disc ml-5 space-y-2">
-          <li>Introduction
-            One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.
-          </li>
-          <li>Core Concepts
-            One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.
-          </li>
+          <li>Introduction</li>
+          <li>Core Concepts</li>
           <li>Hands-on Practice</li>
           <li>Projects</li>
           <li>Advanced Topics</li>
