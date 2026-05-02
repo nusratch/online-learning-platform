@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -9,9 +9,17 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState("/");
 
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams) {
+      const from = searchParams.get("from");
+      if (from) setRedirect(from);
+    }
+  }, [searchParams]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,27 +43,26 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            email: data.user.email,
-            name: data.user.name || "User",
-            image: data.user.image || "https://i.pravatar.cc/150"
-          })
-        );
+        if (typeof window !== "undefined") {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              email: data.user.email,
+              name: data.user.name || "User",
+              image: data.user.image || "https://i.pravatar.cc/150",
+            })
+          );
+        }
 
         toast.success("Login successful 🎉");
-
-        const redirect = searchParams.get("from") || "/";
 
         setTimeout(() => {
           router.push(redirect);
         }, 800);
-
       } else {
         toast.error(data.message || "Login failed ❌");
       }
-    } catch {
+    } catch (error) {
       toast.error("Network error ❌");
     } finally {
       setLoading(false);
@@ -65,16 +72,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-blue-100 to-purple-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
-
         <div className="flex flex-col items-center mb-6">
           <h2 className="text-2xl font-bold">Login</h2>
-          <p className="text-gray-500 text-sm">
-            Sign in to continue
-          </p>
+          <p className="text-gray-500 text-sm">Sign in to continue</p>
         </div>
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
-
           <input
             type="email"
             placeholder="Email Address"
@@ -98,7 +101,6 @@ export default function LoginPage() {
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-
         </form>
 
         <p className="text-center text-sm mt-4">
@@ -107,7 +109,6 @@ export default function LoginPage() {
             Register
           </Link>
         </p>
-
       </div>
     </div>
   );
