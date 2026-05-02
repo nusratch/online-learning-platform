@@ -3,11 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,11 +46,10 @@ export default function LoginPage() {
 
         toast.success("Login successful 🎉");
 
-        const params = new URLSearchParams(window.location.search);
-        const redirect = params.get("from") || "/";
+        const redirect = searchParams.get("from") || "/";
 
         setTimeout(() => {
-          window.location.href = redirect;
+          router.push(redirect);
         }, 800);
 
       } else {

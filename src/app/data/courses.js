@@ -6,7 +6,7 @@ const courses = [
     duration: "20 hours",
     rating: 4.8,
     level: "Beginner",
-    description: "Learn full-stack web development from scratch.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p4.jpg",
     category: "Development"
   },
@@ -17,7 +17,7 @@ const courses = [
     duration: "15 hours",
     rating: 4.7,
     level: "Intermediate",
-    description: "Master UI/UX design principles.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers..",
     image: "/p2.jpg",
     category: "Design"
   },
@@ -28,7 +28,7 @@ const courses = [
     duration: "12 hours",
     rating: 4.6,
     level: "Beginner",
-    description: "Learn marketing strategies.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p3.jpg",
     category: "Marketing"
   },
@@ -39,7 +39,7 @@ const courses = [
     duration: "18 hours",
     rating: 4.9,
     level: "Advanced",
-    description: "Deep dive into React.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p1.png",
     category: "Development"
   },
@@ -50,7 +50,7 @@ const courses = [
     duration: "10 hours",
     rating: 4.5,
     level: "Beginner",
-    description: "Learn design fundamentals.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p4.jpg",
     category: "Design"
   },
@@ -61,7 +61,7 @@ const courses = [
     duration: "8 hours",
     rating: 4.4,
     level: "Beginner",
-    description: "Improve website SEO.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p4.jpg",
     category: "Marketing"
   }
@@ -73,7 +73,7 @@ const courses = [
     duration: "19 hours",
     rating: 4.1,
     level: "Beginner",
-    description: "Learn design fundamentals.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p4.jpg",
     category: "Design"
   },
@@ -84,7 +84,7 @@ const courses = [
     duration: "10 hours",
     rating: 4.0,
     level: "Beginner",
-    description: "Learn design fundamentals.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p4.jpg",
     category: "Design"
   },
@@ -96,7 +96,7 @@ const courses = [
     duration: "10 hours",
     rating: 4.0,
     level: "Beginner",
-    description: "Learn design fundamentals.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p4.jpg",
     category: "Design"
   },
@@ -107,18 +107,18 @@ const courses = [
     duration: "10 hours",
     rating: 3.5,
     level: "Beginner",
-    description: "Learn design fundamentals.",
+    description: "One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.",
     image: "/p4.jpg",
     category: "Design"
   },
     {
     id: 11,
-    title: "softawre Engineering",
+    title: "software Engineering",
     instructor: "Suhaa",
     duration: "10 hours",
     rating: 3.5,
     level: "Beginner",
-    description: "Learn design fundamentals.",
+    description: "Learn design fundaOne of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.mentals.",
     image: "/p4.jpg",
     category: "Design"
   },
@@ -129,7 +129,7 @@ const courses = [
     duration: "10 hours",
     rating: 3.8,
     level: "Beginner",
-    description: "Learn design fundamentals.",
+    description: "Learn desiOne of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.gn fundamentals.",
     image: "/p4.jpg",
     category: "Design"
   },

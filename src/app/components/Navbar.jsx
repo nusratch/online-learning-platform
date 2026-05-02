@@ -53,8 +53,13 @@ export default function Navbar() {
 
         {user ? (
           <>
-            <Link href="/profile" className="hover:text-blue-500">
-              My Profile
+            <Link href="/profile" className="flex items-center gap-2 hover:text-blue-500">
+              <img
+                src={user.image || "https://i.pravatar.cc/150"}
+                alt="user"
+                className="w-8 h-8 rounded-full object-cover border"
+              />
+              <span className="hidden sm:block">My Profile</span>
             </Link>
 
             <button

@@ -17,16 +17,17 @@ export default function CoursesPage() {
     const storedUser = localStorage.getItem("user");
 
     if (!storedUser) {
-      router.replace("/register?from=/courses");
-    } else {
-      setIsAllowed(true);
-
-      if (!hasShown.current) {
-        toast.success("Here are all courses 📚");
-        hasShown.current = true;
-      }
+      router.replace("/login?from=/courses");
+      return;
     }
-  }, []);
+
+    setIsAllowed(true);
+
+    if (!hasShown.current) {
+      toast.success("Here are all courses 📚");
+      hasShown.current = true;
+    }
+  }, [router]);
 
   const filteredCourses = courses.filter((course) =>
     course.title.toLowerCase().includes(search.toLowerCase())
@@ -43,7 +44,7 @@ export default function CoursesPage() {
 
   return (
     <div className="px-4 sm:px-6 lg:px-12 py-6 max-w-7xl mx-auto">
-      
+
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

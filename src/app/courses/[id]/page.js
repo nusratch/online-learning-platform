@@ -61,7 +61,7 @@ export default function CourseDetails() {
       </p>
 
       <p className="text-gray-700 mb-6 leading-relaxed">
-        {course.description?.slice(0, 120)}...
+        {course.description}
       </p>
 
       <div className="bg-gray-100 p-5 rounded-xl">
@@ -71,13 +71,10 @@ export default function CourseDetails() {
 
         <ul className="list-disc ml-5 space-y-2">
           <li>Introduction
-
-
-            Online education makes learning accessible to anyone, anywhere, at any time. It offers flexibility, allowing students to study at their own pace and balance other responsibilities. With a wide range of courses and resources, it supports skill development and lifelong learning. Additionally, it often reduces costs compared to traditional education, making quality learning more affordable.
+            One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.
           </li>
           <li>Core Concepts
-
-            The core concept of online education is learning through digital platforms using the internet. It focuses on flexibility, accessibility, and self-paced study. Students can access lessons, resources, and teachers from anywhere without physical classrooms
+            One of the biggest advantages of online education is flexibility. Students can learn at their own pace, making it easier to balance studies with work, family, or other responsibilities. It also offers a wide range of courses—from academic subjects to professional skills like programming, design, and business—helping individuals grow in their careers.
           </li>
           <li>Hands-on Practice</li>
           <li>Projects</li>

@@ -25,6 +25,7 @@ Tech Used
 - MongoDB Atlas
 - React Toastify
 - Framer Motion
+- BetterAuth
 
 
 Packages
