@@ -9,7 +9,13 @@ export default function ProfilePage() {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsed = JSON.parse(storedUser);
+
+      setUser({
+        name: parsed.name || parsed.displayName || "User",
+        email: parsed.email || "",
+        image: parsed.image || ""
+      });
     }
   }, []);
 
@@ -23,24 +29,22 @@ export default function ProfilePage() {
 
   return (
     <div className="flex justify-center items-center min-h-[80vh] px-4">
-      <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-md text-center">
+      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md text-center">
 
-        <img
-          src={user.image || "https://i.pravatar.cc/150"}
-          alt="Profile"
-          className="w-28 h-28 mx-auto rounded-full object-cover mb-4"
-        />
-
-        <h2 className="text-2xl font-semibold mb-1">
-          {user.name || "User"}
+        <h2 className="text-2xl font-semibold text-black mb-2">
+          {user.name}
         </h2>
 
-        <p className="text-gray-500 mb-4">
+        <p className="text-gray-500 mb-2">
+          {user.image || "No image URL added"}
+        </p>
+
+        <p className="text-gray-700 mb-6">
           {user.email}
         </p>
 
         <Link href="/profile/update">
-          <button className="btn btn-primary w-full">
+          <button className="w-full py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
             Update Profile
           </button>
         </Link>

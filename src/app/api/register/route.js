@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/db";
-import bcrypt from "bcryptjs";
 
 export async function POST(req) {
   try {
     const body = await req.json();
     let { name, email, password, image } = body;
 
-    // ✅ Clean input
     name = name?.trim();
     email = email?.trim();
     password = password?.trim();
@@ -22,7 +20,6 @@ export async function POST(req) {
     const client = await clientPromise;
     const db = client.db("skillpshere");
 
-    // ✅ Check existing user
     const existingUser = await db.collection("users").findOne({ email });
 
     if (existingUser) {
@@ -32,10 +29,8 @@ export async function POST(req) {
       );
     }
 
-    // ✅ Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = password;
 
-    // ✅ Insert user
     await db.collection("users").insertOne({
       name,
       email,
@@ -50,7 +45,7 @@ export async function POST(req) {
     );
 
   } catch (error) {
-    console.error("🔥 REGISTER ERROR:", error); // VERY IMPORTANT
+    console.error("🔥 REGISTER ERROR:", error);
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 }

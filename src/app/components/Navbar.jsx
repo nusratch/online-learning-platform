@@ -42,12 +42,12 @@ export default function Navbar() {
         SkillSphere
       </h1>
 
-      <div className="flex gap-2 sm:gap-4 items-center">
-        <Link href="/" className="text-black hover:text-blue-500">
+      <div className="flex gap-3 sm:gap-5 items-center">
+        <Link href="/" className="text-black font-medium hover:text-blue-500">
           Home
         </Link>
 
-        <Link href="/courses" className="text-black hover:text-blue-500">
+        <Link href="/courses" className="text-black font-medium hover:text-blue-500">
           Courses
         </Link>
 
@@ -57,12 +57,19 @@ export default function Navbar() {
               href="/profile"
               className="flex items-center gap-2 text-black hover:text-blue-500"
             >
-              <img
-                src={user.image || "https://i.pravatar.cc/150"}
-                alt="user"
-                className="w-8 h-8 rounded-full object-cover border"
-              />
-              <span className="hidden sm:block">My Profile</span>
+              {user.image ? (
+                <img
+                  src={user.image}
+                  alt="user"
+                  className="w-8 h-8 rounded-full object-cover border"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                  <span className="text-sm text-white">👤</span>
+                </div>
+              )}
+
+              <span className="hidden sm:block">Profile</span>
             </Link>
 
             <button
@@ -83,7 +90,7 @@ export default function Navbar() {
 
             <Link
               href="/register"
-              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md border text-black hover:bg-gray-100"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md border border-gray-300 text-black hover:bg-gray-100"
             >
               Register
             </Link>

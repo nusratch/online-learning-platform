@@ -7,17 +7,20 @@ export default function GoogleSuccess() {
   const router = useRouter();
 
   useEffect(() => {
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name: "Google User",
-        email: "google@gmail.com",
-        image: "https://i.pravatar.cc/150?img=3",
-      })
-    );
+    const existingUser = localStorage.getItem("user");
+
+    if (!existingUser) {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: "User",
+          email: "user@gmail.com",
+          image: ""
+        })
+      );
+    }
 
     window.dispatchEvent(new Event("storage"));
-
     router.replace("/");
   }, []);
 
