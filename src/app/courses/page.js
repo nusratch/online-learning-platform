@@ -9,42 +9,53 @@ import { useRouter } from "next/navigation";
 
 export default function CoursesPage() {
   const [search, setSearch] = useState("");
-  const [isAllowed, setIsAllowed] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const hasShown = useRef(false);
   const router = useRouter();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const timer = setTimeout(() => {
+      const storedUser = localStorage.getItem("user");
 
-    if (!storedUser) {
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+
+        if (!hasShown.current) {
+          toast.success("Here are all courses 📚");
+          hasShown.current = true;
+        }
+      }
+
+      setLoading(false);
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!loading && !user) {
       router.replace("/login?from=/courses");
-      return;
     }
-
-    setIsAllowed(true);
-
-    if (!hasShown.current) {
-      toast.success("Here are all courses 📚");
-      hasShown.current = true;
-    }
-  }, [router]);
+  }, [loading, user, router]);
 
   const filteredCourses = courses.filter((course) =>
     course.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (!isAllowed) {
+  if (loading) {
     return (
       <div className="flex flex-col justify-center items-center min-h-[70vh] gap-3">
         <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-gray-600 animate-pulse">Checking access...</p>
+        <p className="text-gray-600 animate-pulse">Loading...</p>
       </div>
     );
   }
 
+  if (!user) return null;
+
   return (
     <div className="px-4 sm:px-6 lg:px-12 py-6 max-w-7xl mx-auto">
-
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -98,7 +109,6 @@ export default function CoursesPage() {
                     View Details
                   </button>
                 </Link>
-
               </div>
             </motion.div>
           ))
