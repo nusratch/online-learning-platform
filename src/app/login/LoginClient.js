@@ -15,16 +15,14 @@ export default function LoginClient() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (searchParams) {
-      const from = searchParams.get("from");
-      if (from) setRedirect(from);
-    }
+    const from = searchParams?.get("from");
+    if (from) setRedirect(from);
   }, [searchParams]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!email.trim() || !password.trim()) {
       toast.error("All fields are required ❌");
       return;
     }
@@ -37,32 +35,31 @@ export default function LoginClient() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email: email.trim(),
+          password: password.trim(),
+        }),
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
-        if (typeof window !== "undefined") {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              email: data.user.email,
-              name: data.user.name || "User",
-              image: data.user.image || "https://i.pravatar.cc/150",
-            })
-          );
-        }
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: data.user.email,
+            name: data.user.name || "User",
+            image: data.user.image || "https://i.pravatar.cc/150",
+          })
+        );
 
         toast.success("Login successful 🎉");
 
-        setTimeout(() => {
-          router.push(redirect);
-        }, 800);
+        router.push(redirect || "/");
       } else {
         toast.error(data.message || "Login failed ❌");
       }
-    } catch {
+    } catch (error) {
       toast.error("Network error ❌");
     } finally {
       setLoading(false);
@@ -84,6 +81,7 @@ export default function LoginClient() {
             className="input input-bordered w-full"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
           <input
@@ -92,6 +90,7 @@ export default function LoginClient() {
             className="input input-bordered w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
           <button
@@ -105,7 +104,10 @@ export default function LoginClient() {
 
         <p className="text-center text-sm mt-4">
           Don’t have an account?{" "}
-          <Link href="/register" className="text-blue-600 font-medium hover:underline">
+          <Link
+            href="/register"
+            className="text-blue-600 font-medium hover:underline"
+          >
             Register
           </Link>
         </p>
