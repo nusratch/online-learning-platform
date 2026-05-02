@@ -4,9 +4,27 @@ import { motion } from "framer-motion";
 import Hero from "./components/Hero";
 import CourseCard from "./components/CourseCard";
 import courses from "./data/courses";
+import { toast } from "react-toastify";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
   const topCourses = courses.slice(0, 3);
+  const hasShown = useRef(false);
+
+  useEffect(() => {
+    if (!hasShown.current) {
+      const user = localStorage.getItem("user");
+
+      if (user) {
+        const parsedUser = JSON.parse(user);
+        toast.success(`Welcome ${parsedUser.name || "User"} 🎉`);
+      } else {
+        toast.success("Welcome to SkillSphere 🚀");
+      }
+
+      hasShown.current = true;
+    }
+  }, []);
 
   return (
     <>
@@ -69,6 +87,32 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      <section className="py-12 px-4 bg-white">
+  <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+    🆕 New Releases
+  </h2>
+
+  <div className="max-w-7xl mx-auto grid gap-6 md:grid-cols-3">
+    {courses.slice(3, 6).map((course) => (
+      <div
+        key={course.id}
+        className="bg-gray-100 p-4 rounded-xl shadow hover:shadow-lg transition"
+      >
+        <img
+          src={course.image}
+          className="w-full h-40 object-cover rounded-md mb-3"
+        />
+
+        <h3 className="font-semibold">{course.title}</h3>
+
+        <p className="text-sm text-gray-500">
+          {course.instructor}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
 
       <section className="py-14 px-4">
         <motion.h2

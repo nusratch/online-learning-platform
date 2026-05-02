@@ -25,7 +25,7 @@ export default function RegisterPage() {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,19 +38,18 @@ export default function RegisterPage() {
         }),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        data = { message: "Invalid server response" };
+      }
 
       if (res.ok) {
         toast.success("Registration successful 🎉");
-
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ name, email, image })
-        );
-
         router.push("/login");
       } else {
-        toast.error(data.message || "Something went wrong ❌");
+        toast.error(data.message || "Registration failed ❌");
       }
     } catch (error) {
       toast.error("Server error ❌");
@@ -60,18 +59,7 @@ export default function RegisterPage() {
   };
 
   const handleGoogleLogin = () => {
-    toast.success("Logged in with Google ✅");
-
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name: "Google User",
-        email: "google@gmail.com",
-        image: "https://i.pravatar.cc/150?img=3",
-      })
-    );
-
-    router.push("/");
+    window.location.href = "/api/auth/google";
   };
 
   return (

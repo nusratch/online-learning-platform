@@ -2,8 +2,35 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loadUser = () => {
+      const storedUser = localStorage.getItem("user");
+      setUser(storedUser ? JSON.parse(storedUser) : null);
+    };
+
+    loadUser();
+
+    window.addEventListener("storage", loadUser);
+
+    const interval = setInterval(loadUser, 500);
+
+    return () => {
+      window.removeEventListener("storage", loadUser);
+      clearInterval(interval);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    window.location.href = "/";
+  };
+
   return (
     <motion.nav
       initial={{ y: -60, opacity: 0 }}
@@ -11,43 +38,49 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
       className="flex justify-between items-center px-4 sm:px-6 lg:px-12 py-4 shadow-sm bg-white sticky top-0 z-50"
     >
-      <motion.h1
-        whileHover={{ scale: 1.1 }}
-        className="text-lg sm:text-xl font-bold text-blue-600 cursor-pointer"
-      >
+      <h1 className="text-lg sm:text-xl font-bold text-blue-600 cursor-pointer">
         SkillSphere
-      </motion.h1>
+      </h1>
 
       <div className="flex gap-2 sm:gap-4 items-center">
-        <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href="/" className="text-sm sm:text-base hover:text-blue-500 transition">
-            Home
-          </Link>
-        </motion.div>
+        <Link href="/" className="hover:text-blue-500">
+          Home
+        </Link>
 
-        <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href="/courses" className="text-sm sm:text-base hover:text-blue-500 transition">
-            Courses
-          </Link>
-        </motion.div>
+        <Link href="/courses" className="hover:text-blue-500">
+          Courses
+        </Link>
 
-        <motion.div whileTap={{ scale: 0.95 }}>
-          <Link
-            href="/login"
-            className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md bg-blue-500 text-white text-sm sm:text-base hover:bg-blue-600 transition"
-          >
-            Login
-          </Link>
-        </motion.div>
+        {user ? (
+          <>
+            <Link href="/profile" className="hover:text-blue-500">
+              My Profile
+            </Link>
 
-        <motion.div whileTap={{ scale: 0.95 }}>
-          <Link
-            href="/register"
-            className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md border text-sm sm:text-base hover:bg-gray-100 transition"
-          >
-            Register
-          </Link>
-        </motion.div>
+            <button
+              onClick={handleLogout}
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              href="/login"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600"
+            >
+              Login
+            </Link>
+
+            <Link
+              href="/register"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-md border hover:bg-gray-100"
+            >
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </motion.nav>
   );

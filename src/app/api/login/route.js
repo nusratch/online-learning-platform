@@ -6,19 +6,31 @@ export async function POST(req) {
     const { email, password } = await req.json()
 
     const client = await clientPromise
-    const db = client.db("skillSphere")
+    const db = client.db("skillpshere")
 
     const user = await db.collection("users").findOne({ email })
 
-    if (!user || user.password !== password) {
+    console.log("Typed Email:", email)
+    console.log("Typed Password:", password)
+    console.log("DB User:", user)
+
+    if (!user) {
       return NextResponse.json(
-        { success: false, message: "Invalid credentials" },
+        { success: false, message: "User not found" },
+        { status: 401 }
+      )
+    }
+
+    if (user.password !== password) {
+      return NextResponse.json(
+        { success: false, message: "Password does not match" },
         { status: 401 }
       )
     }
 
     return NextResponse.json({
       success: true,
+      message: "Login successful",
       user: {
         email: user.email,
       },

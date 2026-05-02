@@ -3,40 +3,31 @@ import clientPromise from "@/lib/db";
 
 export async function POST(req) {
   try {
-    const { name, email, password } = await req.json();
+    console.log("STEP 1");
 
-    if (!name || !email || !password) {
-      return NextResponse.json(
-        { success: false, message: "All fields required" },
-        { status: 400 }
-      );
-    }
+    const body = await req.json();
+    console.log("STEP 2", body);
+
+    const { name, email, password, image } = body;
 
     const client = await clientPromise;
-    const db = client.db("skillSphere");
+    console.log("STEP 3 DB CONNECTED");
 
-    const existingUser = await db.collection("users").findOne({ email });
-
-    if (existingUser) {
-      return NextResponse.json(
-        { success: false, message: "User already exists" },
-        { status: 400 }
-      );
-    }
+    const db = client.db("skillpshere");
 
     await db.collection("users").insertOne({
       name,
       email,
       password,
+      image,
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "User created",
-    });
+    console.log("STEP 4 SAVED");
+
+    return NextResponse.json({ success: true });
 
   } catch (error) {
-    console.log("REGISTER ERROR:", error);
+    console.log("ERROR:", error);
     return NextResponse.json(
       { success: false, message: "Server error" },
       { status: 500 }

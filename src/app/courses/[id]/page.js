@@ -1,13 +1,42 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import courses from "../../data/courses";
-import { notFound } from "next/navigation";
 
-export default async function CourseDetails({ params }) {
-  const resolvedParams = await params;
-  const id = Number(resolvedParams.id);
+export default function CourseDetails() {
+  const router = useRouter();
+  const params = useParams();
+  const [course, setCourse] = useState(null);
 
-  const course = courses.find((c) => c.id === id);
+  useEffect(() => {
+    if (!params?.id) return;
 
-  if (!course) return notFound();
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
+      router.replace(`/register?from=/courses/${params.id}`);
+      return;
+    }
+
+    const id = Number(params.id);
+    const foundCourse = courses.find((c) => c.id === id);
+
+    if (!foundCourse) {
+      router.replace("/courses");
+      return;
+    }
+
+    setCourse(foundCourse);
+  }, [params]);
+
+  if (!course) {
+    return (
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <p className="text-lg animate-pulse">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -31,8 +60,8 @@ export default async function CourseDetails({ params }) {
         ⏱ Duration: {course.duration} | 🎯 Level: {course.level}
       </p>
 
-      <p className="text-gray-700 mb-6">
-        {course.description}
+      <p className="text-gray-700 mb-6 leading-relaxed">
+        {course.description?.slice(0, 120)}...
       </p>
 
       <div className="bg-gray-100 p-5 rounded-xl">
@@ -41,8 +70,15 @@ export default async function CourseDetails({ params }) {
         </h2>
 
         <ul className="list-disc ml-5 space-y-2">
-          <li>Introduction</li>
-          <li>Core Concepts</li>
+          <li>Introduction
+
+
+            Online education makes learning accessible to anyone, anywhere, at any time. It offers flexibility, allowing students to study at their own pace and balance other responsibilities. With a wide range of courses and resources, it supports skill development and lifelong learning. Additionally, it often reduces costs compared to traditional education, making quality learning more affordable.
+          </li>
+          <li>Core Concepts
+
+            The core concept of online education is learning through digital platforms using the internet. It focuses on flexibility, accessibility, and self-paced study. Students can access lessons, resources, and teachers from anywhere without physical classrooms
+          </li>
           <li>Hands-on Practice</li>
           <li>Projects</li>
           <li>Advanced Topics</li>

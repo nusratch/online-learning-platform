@@ -5,21 +5,41 @@ import courses from "../data/courses";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function CoursesPage() {
   const [search, setSearch] = useState("");
+  const [isAllowed, setIsAllowed] = useState(false);
   const hasShown = useRef(false);
+  const router = useRouter();
 
   useEffect(() => {
-    if (!hasShown.current) {
-      toast.success("Here are all courses 📚");
-      hasShown.current = true;
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
+      router.replace("/register?from=/courses");
+    } else {
+      setIsAllowed(true);
+
+      if (!hasShown.current) {
+        toast.success("Here are all courses 📚");
+        hasShown.current = true;
+      }
     }
   }, []);
 
   const filteredCourses = courses.filter((course) =>
     course.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  if (!isAllowed) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-[70vh] gap-3">
+        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-gray-600 animate-pulse">Checking access...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 sm:px-6 lg:px-12 py-6 max-w-7xl mx-auto">
@@ -39,7 +59,7 @@ export default function CoursesPage() {
         placeholder="Search courses..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6 text-sm sm:text-base"
+        className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6"
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -51,7 +71,7 @@ export default function CoursesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.05 }}
-              className="rounded-xl overflow-hidden border shadow-sm hover:shadow-lg transition duration-300 bg-white"
+              className="rounded-xl overflow-hidden border shadow-sm hover:shadow-lg bg-white"
             >
               <img
                 src={course.image}
@@ -68,12 +88,12 @@ export default function CoursesPage() {
                   {course.instructor}
                 </p>
 
-                <p className="text-yellow-500 text-sm sm:text-base font-medium mb-3">
+                <p className="text-yellow-500 font-medium mb-3">
                   ⭐ {course.rating}
                 </p>
 
                 <Link href={`/courses/${course.id}`}>
-                  <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition text-sm sm:text-base">
+                  <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
                     View Details
                   </button>
                 </Link>
@@ -82,7 +102,7 @@ export default function CoursesPage() {
             </motion.div>
           ))
         ) : (
-          <p className="text-sm sm:text-base text-gray-500">
+          <p className="text-gray-500 text-center">
             No courses found
           </p>
         )}

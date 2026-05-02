@@ -3,12 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +18,9 @@ export default function LoginPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/login", {
+      setLoading(true);
+
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +31,14 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: data.user.email,
+            name: data.user.name || "User",
+            image: data.user.image || "https://i.pravatar.cc/150"
+          })
+        );
 
         toast.success("Login successful 🎉");
 
@@ -38,13 +46,16 @@ export default function LoginPage() {
         const redirect = params.get("from") || "/";
 
         setTimeout(() => {
-          router.push(redirect);
-        }, 1000);
+          window.location.href = redirect;
+        }, 800);
+
       } else {
         toast.error(data.message || "Login failed ❌");
       }
-    } catch (error) {
+    } catch {
       toast.error("Network error ❌");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,8 +88,12 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button type="submit" className="btn btn-primary w-full mt-2">
-            Login
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-primary w-full mt-2 disabled:opacity-50"
+          >
+            {loading ? "Logging in..." : "Login"}
           </button>
 
         </form>

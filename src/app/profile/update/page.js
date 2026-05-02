@@ -1,52 +1,64 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
-export default function UpdateProfile() {
+export default function UpdateProfilePage() {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
+  const router = useRouter();
 
-  const handleUpdate = async (e) => {
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setName(user.name || "");
+      setImage(user.image || "");
+    }
+  }, []);
+
+  const handleUpdate = (e) => {
     e.preventDefault();
 
-    if (!name || !image) {
-      toast.error("Please fill all fields ❌");
+    if (!name && !image) {
+      toast.error("Enter at least one field ❌");
       return;
     }
 
-    try {
-      await authClient.updateUser({
-        name: name,
-        image: image,
-      });
+    const storedUser = JSON.parse(localStorage.getItem("user")) || {};
 
-      localStorage.setItem("name", name);
-      localStorage.setItem("image", image);
+    const updatedUser = {
+      ...storedUser,
+      name: name || storedUser.name,
+      image: image || storedUser.image,
+    };
 
-      toast.success("Profile updated successfully ✅");
-    } catch (error) {
-      toast.error("Update failed ❌");
-    }
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    toast.success("Profile updated successfully ✅");
+
+    setTimeout(() => {
+      router.push("/profile");
+    }, 1000);
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[70vh] px-4">
+    <div className="flex justify-center items-center min-h-[80vh] px-4">
 
       <form
         onSubmit={handleUpdate}
-        className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md flex flex-col gap-5"
+        className="w-full max-w-md bg-white p-6 rounded-xl shadow-md flex flex-col gap-4"
       >
 
-        <h2 className="text-xl font-semibold text-center">
+        <h2 className="text-2xl font-semibold text-center">
           Update Profile
         </h2>
 
         <input
           type="text"
           placeholder="Enter name"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-blue-500"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -54,7 +66,7 @@ export default function UpdateProfile() {
         <input
           type="text"
           placeholder="Image URL"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-blue-500"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
           value={image}
           onChange={(e) => setImage(e.target.value)}
         />
